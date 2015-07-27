@@ -159,13 +159,13 @@ func LoadTokenMap(keywordTokens map[Token]string) {
 
 	// Load Keywords
 	for k, v := range keywordTokens {
-		keywords[v] = k
+		keywords[strings.ToLower(v)] = k
 	}
 }
 
 // String returns the string representation of the token.
 func (tok Token) String() string {
-	if tok >= 0 && tok < Token(len(tokens)) {
+	if _, ok := tokens[tok]; ok {
 		return tokens[tok]
 	}
 	return ""
