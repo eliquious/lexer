@@ -130,6 +130,16 @@ func (s *Scanner) Scan() (tok Token, pos Pos, lit string) {
 	return ILLEGAL, pos, string(ch0)
 }
 
+// Peek returns the next rune without advancing the scanner
+func (s *Scanner) Peek() rune {
+	r, _, _ := s.r.ReadRune()
+	if r != eof {
+		_ = s.r.UnreadRune()
+	}
+
+	return r
+}
+
 // read reads the next rune from the bufferred reader.
 // Returns the rune(0) if an error occurs (or io.EOF is returned).
 func (s *Scanner) read() rune {
