@@ -56,3 +56,8 @@ func (s *TokenBuffer) Current() (tok Token, pos Pos, lit string) {
 	buf := &s.buf[(s.i-s.n+len(s.buf))%len(s.buf)]
 	return buf.tok, buf.pos, buf.lit
 }
+
+// Peek returns the next rune from the scanner.
+func (s *TokenBuffer) Peek() rune {
+	return s.s.Peek()
+}
