@@ -76,10 +76,10 @@ func TestScanner_Scan(t *testing.T) {
 		{s: `foo`, tok: IDENT, lit: `foo`},
 		{s: `_foo`, tok: IDENT, lit: `_foo`},
 		{s: `Zx12_3U_-`, tok: IDENT, lit: `Zx12_3U_`},
-		{s: `"foo"`, tok: IDENT, lit: `foo`},
-		{s: `"foo\\bar"`, tok: IDENT, lit: `foo\bar`},
+		{s: `"foo"`, tok: STRING, lit: `foo`},
+		{s: `"foo\\bar"`, tok: STRING, lit: `foo\bar`},
 		{s: `"foo\bar"`, tok: BADESCAPE, lit: `\b`, pos: Pos{Line: 0, Char: 5}},
-		{s: `"foo\"bar\""`, tok: IDENT, lit: `foo"bar"`},
+		{s: `"foo\"bar\""`, tok: STRING, lit: `foo"bar"`},
 		{s: `test"`, tok: BADSTRING, lit: "", pos: Pos{Line: 0, Char: 3}},
 		{s: `"test`, tok: BADSTRING, lit: `test`},
 

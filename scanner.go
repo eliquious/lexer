@@ -45,8 +45,7 @@ func (s *Scanner) Scan() (tok Token, pos Pos, lit string) {
 	case eof:
 		return EOF, pos, ""
 	case '"':
-		s.r.unread()
-		return s.scanIdent()
+		return s.scanString()
 	case '\'':
 		return s.scanString()
 	case '.':
