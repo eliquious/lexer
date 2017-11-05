@@ -45,7 +45,8 @@ const (
 
 	startLiterals
 	IDENT
-	NUMBER
+	INTEGER
+	DECIMAL
 	STRING
 	BADSTRING
 	BADESCAPE
@@ -110,7 +111,8 @@ var tokens = map[Token]string{
 	ATSIGN:      "@",
 
 	IDENT:     "IDENT",
-	NUMBER:    "NUM",
+	INTEGER:   "INTEGER",
+	DECIMAL:   "DECIMAL",
 	STRING:    "TEXTUAL",
 	BADSTRING: "BADSTRING",
 	BADESCAPE: "BADESCAPE",

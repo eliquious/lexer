@@ -98,18 +98,24 @@ func TestScanner_Scan(t *testing.T) {
 		{s: `'test\g'`, tok: BADESCAPE, lit: `\g`, pos: Pos{Line: 0, Char: 6}},
 
 		// Numbers
-		{s: `100`, tok: NUMBER, lit: `100`},
-		{s: `100.23`, tok: NUMBER, lit: `100.23`},
-		{s: `+100.23`, tok: NUMBER, lit: `+100.23`},
-		{s: `-100.23`, tok: NUMBER, lit: `-100.23`},
-		{s: `-100.`, tok: NUMBER, lit: `-100`},
-		{s: `.23`, tok: NUMBER, lit: `.23`},
-		{s: `+.23`, tok: NUMBER, lit: `+.23`},
-		{s: `-.23`, tok: NUMBER, lit: `-.23`},
+		{s: `100`, tok: INTEGER, lit: `100`},
+		{s: `100.23`, tok: DECIMAL, lit: `100.23`},
+		{s: `+100.23`, tok: DECIMAL, lit: `+100.23`},
+		{s: `-100.23`, tok: DECIMAL, lit: `-100.23`},
+		{s: `-100.`, tok: DECIMAL, lit: `-100`},
+		{s: `.23`, tok: DECIMAL, lit: `.23`},
+		{s: `+.23`, tok: DECIMAL, lit: `+.23`},
+		{s: `-.23`, tok: DECIMAL, lit: `-.23`},
 		//{s: `.`, tok: ILLEGAL, lit: `.`},
 		{s: `-.`, tok: MINUS, lit: ``},
 		{s: `+.`, tok: PLUS, lit: ``},
-		{s: `10.3s`, tok: NUMBER, lit: `10.3`},
+		{s: `10.3s`, tok: DECIMAL, lit: `10.3`},
+		{s: `10.3E5`, tok: DECIMAL, lit: `10.3E5`},
+		{s: `10.3E+5`, tok: DECIMAL, lit: `10.3E+5`},
+		{s: `10.3E-5`, tok: DECIMAL, lit: `10.3E-5`},
+		{s: `10.3E-0.5`, tok: DECIMAL, lit: `10.3E-0.5`},
+		{s: `10.3E-0.5.3`, tok: DECIMAL, lit: `10.3E-0.5`},
+		{s: `10E3`, tok: DECIMAL, lit: `10E3`},
 
 		// Durations
 		{s: `10u`, tok: DURATION_VAL, lit: `10u`},
@@ -120,7 +126,7 @@ func TestScanner_Scan(t *testing.T) {
 		{s: `10h`, tok: DURATION_VAL, lit: `10h`},
 		{s: `10d`, tok: DURATION_VAL, lit: `10d`},
 		{s: `10w`, tok: DURATION_VAL, lit: `10w`},
-		{s: `10x`, tok: NUMBER, lit: `10`}, // non-duration unit
+		{s: `10x`, tok: INTEGER, lit: `10`}, // non-duration unit
 	}
 
 	for i, tt := range tests {

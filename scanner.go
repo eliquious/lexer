@@ -244,6 +244,7 @@ func (s *Scanner) scanString() (tok Token, pos Pos, lit string) {
 // For example, a minus sign followed by a letter will just return a minus sign.
 func (s *Scanner) scanNumber() (tok Token, pos Pos, lit string) {
 	var buf bytes.Buffer
+	// var isFloat bool
 
 	// Check if the initial rune is a "+" or "-".
 	ch, pos := s.r.curr()
@@ -277,7 +278,16 @@ func (s *Scanner) scanNumber() (tok Token, pos Pos, lit string) {
 	}
 
 	// Read as many digits as possible.
-	_, _ = buf.WriteString(s.scanDigits())
+	buf.WriteString(s.scanDigits())
+
+	// Exponent?
+	if exp, _ := s.r.read(); exp == 'E' || exp == 'e' {
+		buf.WriteRune('E')
+		buf.WriteString(s.scanExponent())
+		return DECIMAL, pos, buf.String()
+	} else {
+		s.r.unread()
+	}
 
 	// If next code points are a full stop and digit then consume them.
 	if ch0, _ := s.r.read(); ch0 == '.' {
@@ -285,10 +295,18 @@ func (s *Scanner) scanNumber() (tok Token, pos Pos, lit string) {
 			_, _ = buf.WriteRune(ch0)
 			_, _ = buf.WriteRune(ch1)
 			_, _ = buf.WriteString(s.scanDigits())
+		}
+
+		// Exponent?
+		if exp, _ := s.r.read(); exp == 'E' || exp == 'e' {
+			buf.WriteRune('E')
+			buf.WriteString(s.scanExponent())
+			return DECIMAL, pos, buf.String()
 		} else {
 			s.r.unread()
-			s.r.unread()
 		}
+		return DECIMAL, pos, buf.String()
+
 	} else {
 		s.r.unread()
 	}
@@ -310,7 +328,43 @@ func (s *Scanner) scanNumber() (tok Token, pos Pos, lit string) {
 		}
 		s.r.unread()
 	}
-	return NUMBER, pos, buf.String()
+	return INTEGER, pos, buf.String()
+}
+
+// scanDigits consume a contiguous series of digits.
+func (s *Scanner) scanExponent() string {
+	var buf bytes.Buffer
+
+	// Sign?
+	ch1, _ := s.r.read()
+	if ch1 == '+' || ch1 == '-' {
+		_, _ = buf.WriteRune(ch1)
+	} else {
+		s.r.unread()
+	}
+
+	// Digits
+	var period bool
+	for {
+		ch3, _ := s.r.read()
+		if isDigit(ch3) {
+			_, _ = buf.WriteRune(ch3)
+		} else if ch3 == '.' {
+
+			// Only allow one period
+			if !period {
+				period = true
+				buf.WriteRune(ch3)
+			} else {
+				s.r.unread()
+				break
+			}
+		} else {
+			s.r.unread()
+			break
+		}
+	}
+	return buf.String()
 }
 
 // scanDigits consume a contiguous series of digits.
@@ -318,11 +372,12 @@ func (s *Scanner) scanDigits() string {
 	var buf bytes.Buffer
 	for {
 		ch, _ := s.r.read()
-		if !isDigit(ch) {
+		if isDigit(ch) {
+			buf.WriteRune(ch)
+		} else {
 			s.r.unread()
 			break
 		}
-		_, _ = buf.WriteRune(ch)
 	}
 	return buf.String()
 }
