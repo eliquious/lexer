@@ -61,7 +61,9 @@ const (
 
 	startOperators
 	PLUS      // +
+	PLUSPLUS  // ++
 	MINUS     // -
+	MINUSMINUS// --
 	MUL       // *
 	DIV       // /
 	AMPERSAND // &
@@ -121,7 +123,9 @@ var tokens = map[Token]string{
 	BADREGEX:  "BADREGEX",
 
 	PLUS:      "+",
+	PLUSPLUS:  "++",
 	MINUS:     "-",
+	MINUSMINUS:"--",
 	MUL:       "*",
 	DIV:       "/",
 	AMPERSAND: "&",

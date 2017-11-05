@@ -56,10 +56,16 @@ func (s *Scanner) Scan() (tok Token, pos Pos, lit string) {
 		}
 		return DOT, pos, ""
 	case '+':
+		if ch1, _ := s.r.read(); ch1 == '+' {
+			return PLUSPLUS, pos, ""
+		}
+		s.r.unread()
 		return s.scanNumber()
 	case '-':
 		if ch1, _ := s.r.read(); ch1 == '>' {
 			return ARROW, pos, ""
+		} else if ch1 == '-' {
+			return MINUSMINUS, pos, ""
 		}
 		s.r.unread()
 		return s.scanNumber()
