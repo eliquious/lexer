@@ -68,6 +68,10 @@ const (
 	PIPE      // |
 	LSHIFT    // <<
 	RSHIFT    // >>
+	POW       // **
+	
+	ARROW       // ->
+	EQARROW     // =>
 
 	AND // AND
 	OR  // OR
@@ -122,6 +126,9 @@ var tokens = map[Token]string{
 	PIPE:      "|",
 	RSHIFT:    ">>",
 	LSHIFT:    "<<",
+	POW:       "**",
+	ARROW:     "->",
+	EQARROW:   "=>",
 
 	AND: "AND",
 	OR:  "OR",
@@ -184,7 +191,7 @@ func (tok Token) Precedence() int {
 		return 4
 	case MUL, DIV:
 		return 5
-	case PIPE, XOR, RSHIFT, LSHIFT:
+	case PIPE, XOR, RSHIFT, LSHIFT, POW:
 		return 6
 	}
 	return 0
