@@ -40,6 +40,8 @@ const (
 	DOLLAR      // $
 	HASH        // #
 	ATSIGN      // @
+	ARROW       // ->
+	EQARROW     // =>
 
 	// Literals
 
@@ -60,21 +62,18 @@ const (
 	// Operators
 
 	startOperators
-	PLUS      // +
-	PLUSPLUS  // ++
-	MINUS     // -
-	MINUSMINUS// --
-	MUL       // *
-	DIV       // /
-	AMPERSAND // &
-	XOR       // ^
-	PIPE      // |
-	LSHIFT    // <<
-	RSHIFT    // >>
-	POW       // **
-	
-	ARROW       // ->
-	EQARROW     // =>
+	PLUS       // +
+	PLUSPLUS   // ++
+	MINUS      // -
+	MINUSMINUS // --
+	MUL        // *
+	DIV        // /
+	AMPERSAND  // &
+	XOR        // ^
+	PIPE       // |
+	LSHIFT     // <<
+	RSHIFT     // >>
+	POW        // **
 
 	AND // AND
 	OR  // OR
@@ -122,20 +121,20 @@ var tokens = map[Token]string{
 	REGEX:     "REGEX",
 	BADREGEX:  "BADREGEX",
 
-	PLUS:      "+",
-	PLUSPLUS:  "++",
-	MINUS:     "-",
-	MINUSMINUS:"--",
-	MUL:       "*",
-	DIV:       "/",
-	AMPERSAND: "&",
-	XOR:       "^",
-	PIPE:      "|",
-	RSHIFT:    ">>",
-	LSHIFT:    "<<",
-	POW:       "**",
-	ARROW:     "->",
-	EQARROW:   "=>",
+	PLUS:       "+",
+	PLUSPLUS:   "++",
+	MINUS:      "-",
+	MINUSMINUS: "--",
+	MUL:        "*",
+	DIV:        "/",
+	AMPERSAND:  "&",
+	XOR:        "^",
+	PIPE:       "|",
+	RSHIFT:     ">>",
+	LSHIFT:     "<<",
+	POW:        "**",
+	ARROW:      "->",
+	EQARROW:    "=>",
 
 	AND: "AND",
 	OR:  "OR",
@@ -198,14 +197,14 @@ func (tok Token) Precedence() int {
 		return 4
 	case MUL, DIV:
 		return 5
-	case PIPE, XOR, RSHIFT, LSHIFT, POW:
+	case PIPE, XOR, RSHIFT, LSHIFT, POW, PLUSPLUS, MINUSMINUS:
 		return 6
 	}
 	return 0
 }
 
 // isOperator returns true for operator tokens.
-func (tok Token) isOperator() bool { return tok > startOperators && tok < endOperators }
+func (tok Token) IsOperator() bool { return tok > startOperators && tok < endOperators }
 
 // tokstr returns a literal if provided, otherwise returns the token string.
 func tokstr(tok Token, lit string) string {
