@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"unicode"
 )
 
 // eof represents the end of input
@@ -12,16 +13,21 @@ var eof = rune(0)
 
 // isWhitespace determines if the character should be considered as whitespace
 func isWhitespace(ch rune) bool {
-	return ch == ' ' || ch == '\t' || ch == '\n'
+	return unicode.IsSpace(ch)
+	// return ch == ' ' || ch == '\t' || ch == '\n'
 }
 
 // isLetter determines if the character is a letter
 func isLetter(ch rune) bool {
-	return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')
+	return unicode.IsLetter(ch)
+	// return (ch >= 'a' && ch <= 'z') || (ch >= 'A' && ch <= 'Z')
 }
 
 // isDigit returns true if the rune is a digit.
-func isDigit(ch rune) bool { return (ch >= '0' && ch <= '9') }
+func isDigit(ch rune) bool { 
+	// return (ch >= '0' && ch <= '9') 
+	return unicode.IsNumber(ch)
+}
 
 // isIdentChar returns true if the rune can be used in an unquoted identifier.
 func isIdentChar(ch rune) bool { return isLetter(ch) || isDigit(ch) || ch == '_' }
