@@ -118,14 +118,14 @@ func TestScanner_Scan(t *testing.T) {
 		{s: `10E3`, tok: DECIMAL, lit: `10E3`},
 
 		// Durations
-		{s: `10u`, tok: DURATION_VAL, lit: `10u`},
-		{s: `10µ`, tok: DURATION_VAL, lit: `10µ`},
-		{s: `10ms`, tok: DURATION_VAL, lit: `10ms`},
-		{s: `-1s`, tok: DURATION_VAL, lit: `-1s`},
-		{s: `10m`, tok: DURATION_VAL, lit: `10m`},
-		{s: `10h`, tok: DURATION_VAL, lit: `10h`},
-		{s: `10d`, tok: DURATION_VAL, lit: `10d`},
-		{s: `10w`, tok: DURATION_VAL, lit: `10w`},
+		{s: `10u`, tok: DURATION, lit: `10u`},
+		{s: `10µ`, tok: DURATION, lit: `10µ`},
+		{s: `10ms`, tok: DURATION, lit: `10ms`},
+		{s: `-1s`, tok: DURATION, lit: `-1s`},
+		{s: `10m`, tok: DURATION, lit: `10m`},
+		{s: `10h`, tok: DURATION, lit: `10h`},
+		{s: `10d`, tok: DURATION, lit: `10d`},
+		{s: `10w`, tok: DURATION, lit: `10w`},
 		{s: `10x`, tok: INTEGER, lit: `10`}, // non-duration unit
 	}
 

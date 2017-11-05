@@ -54,7 +54,7 @@ const (
 	FALSE
 	REGEX
 	BADREGEX
-	DURATION_VAL
+	DURATION
 	endLiterals
 
 	// Operators
@@ -114,6 +114,7 @@ var tokens = map[Token]string{
 	INTEGER:   "INTEGER",
 	DECIMAL:   "DECIMAL",
 	STRING:    "TEXTUAL",
+	DURATION:  "DURATION",
 	BADSTRING: "BADSTRING",
 	BADESCAPE: "BADESCAPE",
 	REGEX:     "REGEX",
