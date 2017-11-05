@@ -37,6 +37,9 @@ func TestScanner_Scan(t *testing.T) {
 		{s: "|", tok: PIPE},
 		{s: ">>", tok: RSHIFT},
 		{s: "<<", tok: LSHIFT},
+		{s: "**", tok: POW},
+		{s: "->", tok: ARROW},
+		{s: "=>", tok: EQARROW},
 
 		// Logical operators
 		{s: `AND`, tok: AND},

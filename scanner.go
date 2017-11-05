@@ -55,15 +55,27 @@ func (s *Scanner) Scan() (tok Token, pos Pos, lit string) {
 			return s.scanNumber()
 		}
 		return DOT, pos, ""
-	case '+', '-':
+	case '+':
+		return s.scanNumber()
+	case '-':
+		if ch1, _ := s.r.read(); ch1 == '>' {
+			return ARROW, pos, ""
+		}
+		s.r.unread()
 		return s.scanNumber()
 	case '*':
+		if ch1, _ := s.r.read(); ch1 == '*' {
+			return POW, pos, ""
+		}
+		s.r.unread()
 		return MUL, pos, ""
 	case '/':
 		return DIV, pos, ""
 	case '=':
 		if ch1, _ := s.r.read(); ch1 == '~' {
 			return EQREGEX, pos, ""
+		} else if ch1 == '>' {
+			return EQARROW, pos, ""
 		}
 		s.r.unread()
 		return EQ, pos, ""
