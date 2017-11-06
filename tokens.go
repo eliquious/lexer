@@ -80,6 +80,7 @@ const (
 
 	EQ       // =
 	NEQ      // !=
+	EQEQ     // ==
 	EQREGEX  // =~
 	NEQREGEX // !~
 	LT       // <
@@ -144,6 +145,7 @@ var tokens = map[Token]string{
 
 	EQ:       "=",
 	NEQ:      "!=",
+	EQEQ:     "==",
 	EQREGEX:  "=~",
 	NEQREGEX: "!~",
 

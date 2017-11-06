@@ -60,7 +60,8 @@ func (s *Scanner) Scan() (tok Token, pos Pos, lit string) {
 			return PLUSPLUS, pos, ""
 		}
 		s.r.unread()
-		return s.scanNumber()
+		return PLUS, pos, "+"
+		// return s.scanNumber()
 	case '-':
 		if ch1, _ := s.r.read(); ch1 == '>' {
 			return ARROW, pos, ""
@@ -68,7 +69,8 @@ func (s *Scanner) Scan() (tok Token, pos Pos, lit string) {
 			return MINUSMINUS, pos, ""
 		}
 		s.r.unread()
-		return s.scanNumber()
+		return MINUS, pos, "-"
+		// return s.scanNumber()
 	case '*':
 		if ch1, _ := s.r.read(); ch1 == '*' {
 			return POW, pos, ""
@@ -82,6 +84,8 @@ func (s *Scanner) Scan() (tok Token, pos Pos, lit string) {
 			return EQREGEX, pos, ""
 		} else if ch1 == '>' {
 			return EQARROW, pos, ""
+		} else if ch1 == '=' {
+			return EQEQ, pos, ""
 		}
 		s.r.unread()
 		return EQ, pos, ""
