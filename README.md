@@ -7,7 +7,7 @@ One example project is [PrefixDB](https://github.com/eliquious/prefixdb) which i
 
 ## Extensibility
 
-Custom tokens can be added to the lexer. Here's how you could add severl tokens.
+Custom tokens can be added to the lexer. Here's how you could add several tokens.
 
 ```
 package lexer
