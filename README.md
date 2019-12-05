@@ -1,8 +1,7 @@
 # lexer
 This is a generic tokenizer written in Go. It is meant to be used by higher level parsers for writing DSLs. It is extensible by allowing keywords to be added to the default identifiers.
 
-One example project is [PrefixDB](https://github.com/eliquious/prefixdb) which is a toy database project that has it's own query language.
-
+One example project is [PrefixDB](https://github.com/eliquious/prefixdb) which is a toy database project that has it's own query language. It has a built in parser and tests as well as an AST. It's a great little project that showcases how to use this lexer as well as writing parsers that make use of it.
 
 
 ## Extensibility
